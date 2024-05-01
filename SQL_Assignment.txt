@@ -1,0 +1,146 @@
+task 1: 
+
+create database courier_management_system;
+
+use courier_management_system;
+
+create table User(UserID INT PRIMARY KEY,Name VARCHAR(255),Email VARCHAR(255) UNIQUE,Password VARCHAR(255),ContactNumber VARCHAR(20),Address TEXT);
+
+create table Courier(CourierID INT PRIMARY KEY,SenderName VARCHAR(255),SenderAddress TEXT,ReceiverName VARCHAR(255),ReceiverAddress TEXT,Weight DECIMAL(5, 2),Status VARCHAR(50),TrackingNumber VARCHAR(20) UNIQUE,DeliveryDate DATE);
+
+create table CourierServices(ServiceID INT PRIMARY KEY,ServiceName VARCHAR(100),Cost DECIMAL(8, 2));
+
+create table Employee (EmployeeID INT PRIMARY KEY,Name VARCHAR(255),Email VARCHAR(255) UNIQUE,ContactNumber VARCHAR(20),Role VARCHAR(50),Salary DECIMAL(10, 2));
+
+create table Location(LocationID INT PRIMARY KEY,LocationName VARCHAR(100),Address TEXT);
+
+create table Payment(PaymentID INT PRIMARY KEY,CourierID INT,LocationId INT,Amount DECIMAL(10, 2),PaymentDate DATE,FOREIGN KEY (CourierID) REFERENCES Courier(CourierID),FOREIGN KEY (LocationID) REFERENCES Location(LocationID));
+
+INSERT INTO User (UserID, Name, Email, Password, ContactNumber, Address) VALUES
+(1, 'John Doe', 'john.doe@example.com', 'password123', '123-456-7890', '123 Main St, Anytown, USA'),
+(2, 'Jane Smith', 'jane.smith@example.com', 'abc123', '987-654-3210', '456 Elm St, Othertown, USA'),
+(3, 'Alice Johnson', 'alice.johnson@example.com', 'pass123', '555-555-5555', '789 Oak St, Anycity, USA'),
+(4, 'Michael Brown', 'michael.brown@example.com', 'securepass', '111-222-3333', '101 Pine St, Somewhere, USA'),
+(5, 'Emily Davis', 'emily.davis@example.com', 'qwerty', '999-888-7777', '202 Cedar St, Nowhere, USA'),
+(6, 'David Wilson', 'david.wilson@example.com', 'davidpass', '444-555-6666', '303 Maple St, Anyville, USA'),
+(7, 'Sarah Martinez', 'sarah.martinez@example.com', 'sarah123', '777-999-1111', '404 Birch St, Anothercity, USA'),
+(8, 'James Taylor', 'james.taylor@example.com', 'password', '222-333-4444', '505 Walnut St, Elsewhere, USA'),
+(9, 'Olivia Anderson', 'olivia.anderson@example.com', 'olivia123', '666-777-8888', '606 Oakwood St, Anystate, USA'),
+(10, 'William Thomas', 'william.thomas@example.com', 'will123', '888-777-6666', '707 Pinecrest St, Anycity, USA');
+
+INSERT INTO Courier (CourierID, SenderName, SenderAddress, ReceiverName, ReceiverAddress, Weight, Status, TrackingNumber, DeliveryDate) VALUES
+(1, 'John Doe', '123 Main St, Anytown, USA', 'Jane Smith', '456 Elm St, Othertown, USA', 1.5, 'In Transit', 'ABC123456789', '2024-05-05'),
+(2, 'Alice Johnson', '789 Oak St, Anycity, USA', 'Michael Brown', '101 Pine St, Somewhere, USA', 2.8, 'Delivered', 'DEF987654321', '2024-04-20'),
+(3, 'Emily Davis', '202 Cedar St, Nowhere, USA', 'David Wilson', '303 Maple St, Anyville, USA', 3.2, 'Out for Delivery', 'GHI123456789', '2024-05-10'),
+(4, 'Sarah Martinez', '404 Birch St, Anothercity, USA', 'James Taylor', '505 Walnut St, Elsewhere, USA', 1.9, 'Pending', 'JKL987654321', NULL),
+(5, 'Olivia Anderson', '606 Oakwood St, Anystate, USA', 'William Thomas', '707 Pinecrest St, Anycity, USA', 2.5, 'In Transit', 'MNO123456789', '2024-05-08'),
+(6, 'Ethan Harris', '808 Maplewood St, Somewhere, USA', 'Sophia Clark', '909 Cedar St, Nowhere, USA', 1.7, 'Delivered', 'PQR987654321', '2024-04-25'),
+(7, 'Liam Lee', '101 Elm St, Othertown, USA', 'Ava Scott', '202 Oak St, Anycity, USA', 2.0, 'Out for Delivery', 'STU123456789', '2024-05-12'),
+(8, 'Emma Turner', '303 Pine St, Anytown, USA', 'Noah King', '404 Oakwood St, Anystate, USA', 2.3, 'Pending', 'VWX987654321', NULL),
+(9, 'Mia Green', '505 Cedar St, Anyville, USA', 'Logan Perez', '606 Birch St, Anothercity, USA', 3.1, 'In Transit', 'YZA123456789', '2024-05-15'),
+(10, 'Lucas Baker', '707 Walnut St, Elsewhere, USA', 'Sophia Hall', '808 Maple St, Somewhere, USA', 2.2, 'Delivered', 'BCD987654321', '2024-04-30');
+
+
+INSERT INTO CourierServices (ServiceID, ServiceName, Cost) VALUES
+(1, 'Standard Delivery', 10.00),
+(2, 'Express Delivery', 20.00),
+(3, 'Same-Day Delivery', 30.00),
+(4, 'International Delivery', 50.00),
+(5, 'Overnight Delivery', 25.00);
+
+INSERT INTO Employee (EmployeeID, Name, Email, ContactNumber, Role, Salary) VALUES
+(1, 'Emily Johnson', 'emily.johnson@example.com', '123-456-7890', 'Manager', 60000.00),
+(2, 'David Brown', 'david.brown@example.com', '987-654-3210', 'Developer', 50000.00),
+(3, 'Olivia Smith', 'olivia.smith@example.com', '555-555-5555', 'HR Specialist', 45000.00),
+(4, 'Daniel Miller', 'daniel.miller@example.com', '111-222-3333', 'Sales Representative', 48000.00),
+(5, 'Sophia Wilson', 'sophia.wilson@example.com', '999-888-7777', 'Marketing Coordinator', 47000.00),
+(6, 'Noah Martinez', 'noah.martinez@example.com', '444-555-6666', 'Accountant', 52000.00),
+(7, 'Isabella Davis', 'isabella.davis@example.com', '777-999-1111', 'Customer Service Representative', 43000.00),
+(8, 'Ethan Taylor', 'ethan.taylor@example.com', '222-333-4444', 'IT Support Specialist', 48000.00);
+
+INSERT INTO Location (LocationID, LocationName, Address) VALUES
+(1, 'Corporate Headquarters', '1001 Main Street, Suite 200, Cityville, CA, 90001'),
+(2, 'Downtown Branch Office', '500 Elm Street, 5th Floor, Metro City, NY, 10001'),
+(3, 'Eastside Branch Office', '700 Oak Avenue, Suite 300, Lakeside, FL, 33001'),
+(4, 'Main Warehouse Facility', '200 Pine Street, Warehouse Area, Industrial City, TX, 77001'),
+(5, 'Westside Warehouse', '300 Cedar Avenue, Warehouse District, Harbour Town, CA, 90002'),
+(6, 'Retail Store - City Centre', '400 Maple Boulevard, Shop 101, Central Plaza, Metro City, NY, 10002');
+
+INSERT INTO Payment (PaymentID, CourierID, LocationID, Amount, PaymentDate) VALUES
+(1, 1, 2, 50.00, '2024-04-15'),
+(2, 3, 1, 35.50, '2024-04-20'),
+(3, 5, 4, 75.25, '2024-04-25'),
+(4, 2, 6, 40.00, '2024-05-02'),
+(5, 4, 3, 60.80, '2024-05-05'),
+(6, 6, 5, 90.00, '2024-05-10'),
+(7, 8, 2, 55.50, '2024-05-15'),
+(8, 7, 1, 70.75, '2024-05-20');
+
+
+task 2:
+
+1. select * from User;
+2. select * from Courier where SenderName="Emily Davis";
+3. select * from Courier;
+4. select * from Courier where TrackingNumber="YZA123456789";
+5. select * from Courier where CourierID=6;
+6. select * from Courier where not Status="Delivered";
+7. select * from Courier where DATE(DeliveryDate) = CURDATE();
+8. select * from Courier where Status = "In Transit";
+9. select count(CourierID) from Courier group by CourierId;
+10. select CourierID , avg(DATEDIFF(DeliveryDate,CURDATE())) from Courier group by CourierID;
+11. select Weight from Courier where Weight>=2.30 and weight<=3.20;
+12. select * from Employee where Name like %John%;
+13. select * from Courier c inner join Payments p where c.CourierId = p.CourierID where p.Amount>50;
+
+task 3: 
+
+14. select e.EmployeeID , count(c.CourierID) from Employee e left join Courier c where e.EmployeeId=c.CourierID group by e.EmployeeID;
+15. select LocationID , sum(Amount) from Payment group by LocationID;
+16. select LocationID, count(CourierID) from payment group by LocationID;
+17. select CourierID , avg(DATEDIFF(DeliveryDate,CURDATE())) as avgtime from Courier order by avgtime desc limit 1;
+18. select LocationID from payments group by LocationID having sum(Amount)<50;
+19. select LocationID , sum(Amount) from payment group by LocationID;
+20. select * from Courier c inner join Payment p on c.CourierID = p.CourierID group by c.CourierID having sum(p.Amount)>1000 where p.LocationId=3;
+21. select * from Courier c inner join Payment p on c.CourierID = p.CourierID group by c.CourierID having sum(p.Amount)>1000 where DeliveryDate>"2024-05-05";
+22. select * from Location l inner join Payment p on l.LocationID = p.LocationID group by l.LocationID having sum(p.Amount)>5000 where DeliveryDate<"2024-05-05";
+
+task 4: 
+
+23. select p.Amount , c.CourierID , c.SenderName from payment p join Courier c on c.CourierID = p.CourierID;
+24. select p.Amount , l.LocationID , l.LocationName from payment p join Location l on l.LocationID = p.LocationID;
+25. select p.Amount , c.CourierID ,c.SenderName ,l.LocationID , l.LocationName from payment p join Courier c on c.CourierID = p.CourierID join Location l on l.LocationID = p.LocationID;
+26. select p.Amount , c.CourierID , c.SenderName, c.ReceiverName from payment p left join Courier c on c.CourierID = p.CourierID;
+27. select C.CourierID , sum(p.Amount) from Payment p join Courier c on c.CourierID = p.CourierID group by c.CourierID;
+28. Select * from Payment p where p.PaymentDate = '2024-04-30';
+29. select p.Amount , c.CourierID , c.SenderName, c.ReceiverName from payment p join Courier c on c.CourierID = p.CourierID;
+30. select p.* from Payment p join Location l on l.LocationID = p.LocationID;
+31. select p.Amount , c.CourierID , c.SenderName from Payment p join Courier c on c.CourierID = p.CourierID group by c.CourierID;
+32. select * from Payment where PaymentDate Between "2024-04-25" and "2024-05-20";
+33. select u.UserId , c* from User u left join Courier c on u.UserId = c.CourierID;
+34. select c.* , cs.ServiceID, cs.ServiceName from Courier c left join CourierServices cs on c.CourierID=cs.CourierServices;
+35. select e.* , p.Amount , p.PaymentDate from Employee e left join Payment p on e.EmployeeID = p.PaymentID;
+36. select cs.* , u.* from User u cross join CourierServices cs ;
+37. select e.* , l.* from Employee e cross join Location l ;
+38. select c.* , u.* from User u inner join Courier c on u.Name=c.SenderName;
+39. select c.* , u.* from User u inner join Courier c on u.Name=c.ReceiverName;
+40. select c.* , cs.* from Courier c join CourierServices cs on c.CourierID = cs.ServiceID;
+41. select e.EmployeeID,e.Name , count(c.CourierID) from Employee e left join Courier c on e.EmployeeID = c.CourierID group by e.EmployeeID , e.Name;
+42. select l.LocationID , l.LocationName, sum(p.Amount) from Location l left join Payment p on l.LocationId=p.LocationID group by l.LocationID , l.LocationName;
+43. select * from Courier group by SenderName;
+44. select * from Employee group by Role;
+45. select l.LocationId , l.LocationName , sum(p.Amount) from Location l left join Payment p on l.LocationID = p.LocationID group by l.LocationName;
+46. select SenderAddress , count(*) from Courier group by SenderAddress;
+47. select e.Name , count(c.CourierID) from Employee e left join Courier c on e.EmployeeID = c.CourierID group by e.Name;
+48. select c.CourierID , cs.Cost, p.Amount ,c.SenderName ,c.ReceiverName from Courier c join Payment p on c.CourierID = p.CourierID join CourierServices cs on c.CourierID = cs.ServiceID where p.Amount>cs.Cost;
+
+scope:
+
+49. select CourierID , Weight from Courier where Weight>(select avg(Weight) from Courier);
+50. select Name from Employee where Salary>(select avg(Salary) from Employee);
+51. select sum(cost) from CourierServices where cost <(select max(cost) from CourierServices);
+52. select c.* from Courier c join Payment p on c.CourierID = p.CourierID;
+53. select LocationId , LocationName from Location where LocationId = (select LocationID from payment group by LocationId order by sum(Amount) desc limit 1);
+54. select * from Courier where Weight>(select max(Weight) from Courier where SenderName="David Wilson");
+
+
